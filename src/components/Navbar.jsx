@@ -4,7 +4,7 @@ import { TbDownload } from "react-icons/tb";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 
 export default function Navbar() {
-  const [hasShadow, setHasShadow] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const { scrollYProgress } = useScroll();
@@ -16,7 +16,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setHasShadow(window.scrollY > 0);
+      setIsScrolled(window.scrollY > 40);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -27,119 +27,146 @@ export default function Navbar() {
     const section = document.getElementById(id);
     if (section) {
       window.scrollTo({
-        top: section.offsetTop - 110,
+        top: section.offsetTop - 100,
         behavior: "smooth",
       });
     }
     setIsOpen(false);
   };
 
+  const navItems = ["about", "skills", "education", "projects", "contact"];
+
   return (
-    <motion.nav
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed lg:px-28 px-5 top-0 left-0 w-full z-50 bg-white p-5 transition-shadow duration-300 ${hasShadow ? "shadow-md" : "shadow-none"
-        }`}
-    >
-      {/* Scroll Progress Bar */}
+    <>
+      {/* Topmost Window Scroll Progress Bar */}
       <motion.div
-        className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-black origin-left"
+        className="fixed top-0 left-0 right-0 h-[2.5px] bg-black origin-left z-50"
         style={{ scaleX }}
       />
-      <div className="container mx-auto flex justify-between items-center">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => scrollToSection("home")}
-          className="font-mono text-xl lg:text-2xl font-black tracking-[0.25em] text-black"
-        >
-          AG
-        </motion.button>
 
-        <ul className="hidden lg:flex items-center gap-x-7 font-semibold">
-          {["about", "skills", "education", "projects", "contact"].map((section) => (
-            <motion.li
-              key={section}
-              className="group"
-              whileHover={{ scale: 1.1 }}
+      {/* Floating Dynamic Island Container */}
+      <header className="fixed top-0 left-0 right-0 z-40 flex justify-center pointer-events-none p-3 lg:p-4">
+        <motion.nav
+          layout
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 300, damping: 28 }}
+          className={`pointer-events-auto transition-all duration-300 flex items-center justify-between ${
+            isScrolled
+              ? "w-auto gap-4 lg:gap-8 bg-white/95 backdrop-blur-md border-2 border-black rounded-full px-4 lg:px-6 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+              : "w-full max-w-7xl px-4 lg:px-12 py-3 bg-transparent border-b border-transparent"
+          }`}
+        >
+          {/* Logo Monogram */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => scrollToSection("home")}
+            className="font-mono text-lg lg:text-xl font-black tracking-[0.25em] text-black shrink-0"
+          >
+            AG
+          </motion.button>
+
+          {/* Desktop Nav Links */}
+          <ul className="hidden md:flex items-center gap-x-5 lg:gap-x-7 font-semibold text-xs lg:text-sm">
+            {navItems.map((section) => (
+              <motion.li
+                key={section}
+                className="group relative cursor-pointer"
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <button
+                  onClick={() => scrollToSection(section)}
+                  className="text-zinc-800 hover:text-black transition-colors"
+                >
+                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                </button>
+                <motion.span
+                  className="w-0 transition-all duration-300 group-hover:w-full h-[2px] bg-black block absolute -bottom-1 left-0"
+                  layout
+                />
+              </motion.li>
+            ))}
+          </ul>
+
+          {/* Resume Action */}
+          <div className="flex items-center gap-3">
+            <motion.a
+              href="/ASMIT%20GUPTA%20RESUME.pdf"
+              download
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`relative inline-flex items-center gap-1.5 font-bold transition-all text-xs lg:text-sm ${
+                isScrolled
+                  ? "bg-black text-white hover:bg-zinc-800 px-3.5 py-1.5 rounded-full"
+                  : "bg-white text-black border-2 border-black hover:bg-black hover:text-white px-3.5 py-1.5 rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+              }`}
             >
-              <button onClick={() => scrollToSection(section)}>
-                {section.charAt(0).toUpperCase() + section.slice(1)}
-              </button>
-              <motion.span
-                className="w-0 transition-all duration-300 group-hover:w-full h-[2px] bg-black flex"
-                layout
-              ></motion.span>
-            </motion.li>
-          ))}
-        </ul>
+              Resume <TbDownload size={14} />
+            </motion.a>
 
-        <motion.a
-          href="/ASMIT%20GUPTA%20RESUME.pdf"
-          download
-          className="relative lg:inline-block px-4 py-2 font-medium group"
-        >
-          <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-          <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
-          <span className="relative text-black group-hover:text-white flex items-center gap-x-3">
-            Resume <TbDownload size={16} />
-          </span>
-        </motion.a>
+            {/* Mobile Hamburger Trigger */}
+            <motion.button
+              className="md:hidden text-xl p-1 text-black"
+              onClick={() => setIsOpen(!isOpen)}
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <HiX /> : <HiOutlineMenu />}
+            </motion.button>
+          </div>
+        </motion.nav>
+      </header>
 
-        <motion.button
-          className="lg:hidden text-2xl"
-          onClick={() => setIsOpen(!isOpen)}
-          whileHover={{ scale: 1.2 }}
-        >
-          {isOpen ? <HiX /> : <HiOutlineMenu />}
-        </motion.button>
-      </div>
-
-      {/* Mobile Menu */}
+      {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ y: "-100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-100%" }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden fixed top-0 right-0 h-full w-full bg-white shadow"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-x-4 top-20 z-50 bg-white/95 backdrop-blur-xl border-2 border-black rounded-3xl p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:hidden"
           >
-            <button
-              className="absolute top-5 right-5 text-2xl"
-              onClick={() => setIsOpen(false)}
-            >
-              <HiX />
-            </button>
-            <ul className="flex flex-col items-start ml-16 mt-28 h-full gap-y-6 font-semibold">
-              {["about", "skills", "education", "projects", "contact"].map((section) => (
-                <motion.li
-                  key={section}
-                  className="border-b"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <button onClick={() => scrollToSection(section)}>
+            <div className="flex justify-between items-center mb-6 border-b border-zinc-200 pb-3">
+              <span className="font-mono font-black text-lg tracking-[0.2em]">NAVIGATION</span>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-2xl p-1"
+                aria-label="Close menu"
+              >
+                <HiX />
+              </button>
+            </div>
+
+            <ul className="flex flex-col gap-4 font-bold text-base">
+              {navItems.map((section) => (
+                <li key={section}>
+                  <button
+                    onClick={() => scrollToSection(section)}
+                    className="w-full text-left py-2 px-3 rounded-xl hover:bg-zinc-100 transition-colors"
+                  >
                     {section.charAt(0).toUpperCase() + section.slice(1)}
                   </button>
-                </motion.li>
+                </li>
               ))}
-              <motion.a
+            </ul>
+
+            <div className="mt-6 pt-4 border-t border-zinc-200">
+              <a
                 href="/ASMIT%20GUPTA%20RESUME.pdf"
                 download
-                className="relative inline-block px-4 py-2 font-semibold group"
-                whileHover={{ scale: 1.1 }}
+                className="w-full flex items-center justify-center gap-2 bg-black text-white font-bold py-3 rounded-2xl border-2 border-black"
               >
-                <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-                <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
-                <span className="relative text-black group-hover:text-white flex items-center gap-x-3">
-                  Resume <TbDownload size={16} />
-                </span>
-              </motion.a>
-            </ul>
+                Download Resume <TbDownload size={18} />
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </>
   );
 }
+

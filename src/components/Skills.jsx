@@ -71,8 +71,8 @@ export default function Skills() {
           My <span className="font-extrabold">Skills</span>
         </motion.h2>
 
-        {/* Category Filter Tabs with Sliding Pill Animation */}
-        <div className="flex flex-wrap items-center justify-center gap-2 lg:gap-3 mt-8 lg:mt-10 p-1.5 bg-zinc-100/80 rounded-full border border-black/10 max-w-fit mx-auto">
+        {/* Category Filter Tabs with Frosted Glass & Sliding Pill Animation */}
+        <div className="flex flex-wrap items-center justify-center gap-2 lg:gap-3 mt-8 lg:mt-10 p-1.5 bg-white/75 backdrop-blur-md rounded-full border border-black/15 shadow-sm max-w-fit mx-auto">
           {categories.map((cat) => {
             const count =
               cat.id === "all"

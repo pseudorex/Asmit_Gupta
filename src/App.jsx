@@ -6,6 +6,7 @@ import About from './components/About'
 import Education from './components/Education'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
+import ScrollToTop from './components/ScrollToTop'
 import CustomCursor from './utils/CursorAnimation'
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
       <Education />
       <Projects />
       <Contact />
+      <ScrollToTop />
     </div>
   )
 }
