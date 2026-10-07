@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Skills from './components/Skills'
 import Navbar from './components/Navbar'
 import About from './components/About'
+import Education from './components/Education'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
 import CustomCursor from './utils/CursorAnimation'
@@ -15,6 +16,7 @@ export default function App() {
       <Home />
       <Skills />
       <About />
+      <Education />
       <Projects />
       <Contact />
     </div>
