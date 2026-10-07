@@ -10,7 +10,7 @@ import CustomCursor from './utils/CursorAnimation'
 
 export default function App() {
   return (
-    <div className='font-sora scroll-smooth overflow-x-hidden'>
+    <div className='font-sora scroll-smooth overflow-x-hidden bg-dot-grid'>
       <CustomCursor/>
       <Navbar />
       <Home />

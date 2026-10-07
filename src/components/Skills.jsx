@@ -1,28 +1,42 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { FaPython, FaJava, FaDocker, FaDatabase, FaLinux, FaBug } from "react-icons/fa";
-import { SiFastapi, SiPostgresql, SiRedis, SiGit, SiK6, SiSocketdotio, SiPytest, SiSqlalchemy, SiJsonwebtokens } from "react-icons/si";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaPython, FaDocker, FaDatabase, FaLinux, FaBug } from "react-icons/fa";
+import { SiFastapi, SiPostgresql, SiRedis, SiGit, SiK6, SiSocketdotio, SiPytest, SiSqlalchemy } from "react-icons/si";
 import { FiServer, FiKey } from "react-icons/fi";
 
 export default function Skills() {
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const categories = [
+    { id: "all", label: "All Skills" },
+    { id: "backend", label: "Backend & APIs" },
+    { id: "databases", label: "Databases & Caching" },
+    { id: "devops", label: "DevOps & Systems" },
+    { id: "testing", label: "Testing & Performance" },
+  ];
+
   const [skills] = useState([
-    { id: 1, name: "Python", icon: <FaPython size={50} /> },
-    { id: 2, name: "FastAPI", icon: <SiFastapi size={50} /> },
-    { id: 3, name: "SQLAlchemy", icon: <SiSqlalchemy size={50} /> },
-    { id: 4, name: "PostgreSQL", icon: <SiPostgresql size={50} /> },
-    { id: 5, name: "Redis", icon: <SiRedis size={50} /> },
-    { id: 6, name: "OAuth2 / JWT", icon: <FiKey size={50} /> },
-    { id: 7, name: "Docker", icon: <FaDocker size={50} /> },
-    { id: 8, name: "Git", icon: <SiGit size={50} /> },
-    { id: 9, name: "WebSockets", icon: <SiSocketdotio size={50} /> },
-    { id: 10, name: "K6", icon: <SiK6 size={50} /> },
-    { id: 11, name: "Locust", icon: <FaBug size={50} /> },
-    { id: 12, name: "Alembic", icon: <FaDatabase size={50} /> },
-    { id: 13, name: "Uvicorn", icon: <FiServer size={50} /> },
-    { id: 14, name: "Pytest", icon: <SiPytest size={50} /> },
-    { id: 15, name: "Linux", icon: <FaLinux size={50} /> },
+    { id: 1, name: "FastAPI", category: "backend", core: true, icon: <SiFastapi size={44} /> },
+    { id: 2, name: "PostgreSQL", category: "databases", core: true, icon: <SiPostgresql size={44} /> },
+    { id: 3, name: "Redis", category: "databases", core: true, icon: <SiRedis size={44} /> },
+    { id: 4, name: "Docker", category: "devops", core: true, icon: <FaDocker size={44} /> },
+    { id: 5, name: "SQLAlchemy", category: "databases", core: true, icon: <SiSqlalchemy size={44} /> },
+    { id: 6, name: "Python", category: "backend", icon: <FaPython size={44} /> },
+    { id: 7, name: "OAuth2 / JWT", category: "backend", icon: <FiKey size={44} /> },
+    { id: 8, name: "WebSockets", category: "backend", icon: <SiSocketdotio size={44} /> },
+    { id: 9, name: "Uvicorn", category: "backend", icon: <FiServer size={44} /> },
+    { id: 10, name: "Alembic", category: "databases", icon: <FaDatabase size={44} /> },
+    { id: 11, name: "Linux", category: "devops", icon: <FaLinux size={44} /> },
+    { id: 12, name: "Git", category: "devops", icon: <SiGit size={44} /> },
+    { id: 13, name: "K6", category: "testing", icon: <SiK6 size={44} /> },
+    { id: 14, name: "Locust", category: "testing", icon: <FaBug size={44} /> },
+    { id: 15, name: "Pytest", category: "testing", icon: <SiPytest size={44} /> },
   ]);
 
+  const filteredSkills =
+    activeCategory === "all"
+      ? skills
+      : skills.filter((skill) => skill.category === activeCategory);
 
   const [experiences] = useState([
     {
@@ -57,22 +71,83 @@ export default function Skills() {
           My <span className="font-extrabold">Skills</span>
         </motion.h2>
 
-        {/* Skill Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5 text-lg font-bold mt-7 lg:mt-16 w-full place-items-center gap-y-6 lg:gap-y-12">
-          {skills.map((skill) => (
-            <motion.div
-              key={skill.id}
-              className="bg-white border-2 hover:bg-black hover:text-white transition-all cursor-pointer border-black rounded p-3 h-36 w-36 lg:h-44 lg:w-44 flex flex-col items-center justify-center gap-5"
-              initial={{ opacity: 0, y: 5 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: skill.id * 0.1 }}
-              viewport={{ once: true }}
-            >
-              {skill.icon}
-              <p>{skill.name}</p>
-            </motion.div>
-          ))}
+        {/* Category Filter Tabs with Sliding Pill Animation */}
+        <div className="flex flex-wrap items-center justify-center gap-2 lg:gap-3 mt-8 lg:mt-10 p-1.5 bg-zinc-100/80 rounded-full border border-black/10 max-w-fit mx-auto">
+          {categories.map((cat) => {
+            const count =
+              cat.id === "all"
+                ? skills.length
+                : skills.filter((s) => s.category === cat.id).length;
+            const isActive = activeCategory === cat.id;
+
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`relative px-4 py-2 rounded-full text-xs lg:text-sm font-semibold transition-colors duration-200 z-10 flex items-center ${
+                  isActive ? "text-white" : "text-zinc-700 hover:text-black"
+                }`}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="activeSkillTab"
+                    className="absolute inset-0 bg-black rounded-full -z-10 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)]"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span>{cat.label}</span>
+                <span
+                  className={`ml-2 text-[10px] px-1.5 py-0.5 rounded-full font-bold transition-colors ${
+                    isActive
+                      ? "bg-white text-black"
+                      : "bg-white/80 text-zinc-600 border border-black/5"
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
+
+        {/* Skill Cards Grid with Smooth Spring Layout Animation */}
+        <motion.div
+          layout
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 lg:gap-6 mt-8 lg:mt-12 w-full place-items-center min-h-[360px]"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredSkills.map((skill) => (
+              <motion.div
+                layout
+                key={skill.id}
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.75, y: -15 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 350,
+                  damping: 25,
+                  mass: 0.8,
+                }}
+                whileHover={{ scale: 1.05, y: -4 }}
+                whileTap={{ scale: 0.95 }}
+                className="group relative bg-white border-2 border-black rounded-2xl p-4 h-36 w-36 lg:h-44 lg:w-44 flex flex-col items-center justify-center gap-3 lg:gap-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)] hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer"
+              >
+                {skill.core && (
+                  <span className="absolute top-2 right-2 text-[9px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded bg-black text-white group-hover:bg-white group-hover:text-black border border-black transition-colors">
+                    Core
+                  </span>
+                )}
+                <div className="transition-transform group-hover:scale-110 duration-200">
+                  {skill.icon}
+                </div>
+                <p className="text-sm lg:text-base font-bold text-center leading-tight">
+                  {skill.name}
+                </p>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
       </div>
 
