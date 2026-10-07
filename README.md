@@ -19,11 +19,11 @@ A modern, highly-interactive personal portfolio website showcasing my backend en
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/pseudorex/Asmit_Gupta_Portfolio.git
+   git clone https://github.com/pseudorex/Asmit_Gupta.git
    ```
 2. **Navigate to the project directory:**
    ```sh
-   cd Asmit_Gupta_Portfolio
+   cd Asmit_Gupta
    ```
 3. **Install dependencies:**
    ```sh
