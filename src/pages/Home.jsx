@@ -15,18 +15,18 @@ export default function Home() {
   ];
 
   return (
-    <div className="mt-20" id="home">
-      <div className="flex justify-between py-10 items-center px-5 lg:px-28 lg:flex-row flex-col-reverse">
+    <div className="min-h-screen pt-20 pb-6 flex items-center" id="home">
+      <div className="w-full flex justify-between py-6 items-center px-5 lg:px-28 lg:flex-row flex-col-reverse gap-8 lg:gap-12">
 
         <motion.div
-          className="lg:w-[45%]"
+          className="w-full lg:w-1/2 flex-1"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
         >
 
           <motion.div
-            className="text-2xl lg:text-5xl flex flex-col mt-8 lg:mt-0 gap-2 lg:gap-5 text-nowrap"
+            className="text-2xl sm:text-3xl lg:text-5xl flex flex-col mt-8 lg:mt-0 gap-2 lg:gap-5"
             initial="hidden"
             animate="visible"
             variants={{
@@ -44,27 +44,35 @@ export default function Home() {
             <motion.h2 variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
               <span className="font-extrabold">Backend Developer</span>
             </motion.h2>
-            <motion.h2 variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+            <motion.h2
+              variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+              className="h-[1.2em] flex items-center font-extrabold whitespace-nowrap"
+            >
               <TypeAnimation
                 sequence={[
-                  "FastAPI ",
-                  1200,
-                  "FastAPI • SQLAlchemy ",
-                  1200,
-                  "FastAPI • SQLAlchemy • Redis ",
-                  1200,
-                  "FastAPI • SQLAlchemy • Redis • Secure APIs",
-                  1800,
+                  "FastAPI",
+                  1500,
+                  "SQLAlchemy",
+                  1500,
+                  "Redis",
+                  1500,
+                  "PostgreSQL",
+                  1500,
+                  "Docker",
+                  1500,
+                  "Secure APIs",
+                  1500,
                 ]}
                 speed={50}
-                style={{ display: "inline-block", fontWeight: 600 }}
+                deletionSpeed={65}
+                style={{ display: "inline-block" }}
                 repeat={Infinity}
               />
             </motion.h2>
           </motion.div>
 
           <motion.p
-            className="text-[#71717A] text-sm lg:text-base mt-5"
+            className="text-[#71717A] text-sm lg:text-base mt-5 max-w-xl"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1 }}
@@ -73,7 +81,7 @@ export default function Home() {
           </motion.p>
 
           <motion.div
-            className="flex items-center gap-x-5 mt-10 lg:mt-14"
+            className="flex items-center gap-x-5 mt-8 lg:mt-12"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 1 }}
@@ -95,12 +103,12 @@ export default function Home() {
         </motion.div>
 
         <motion.div
-          className="lg:w-[55%] w-full"
+          className="w-full lg:w-1/2 flex justify-center lg:justify-end"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
         >
-          <img className="h-full w-full" src="/assets/hero-vector.svg" alt="Hero Vector" />
+          <img className="w-full max-w-md lg:max-w-xl h-auto object-contain" src="/assets/hero-vector.svg" alt="Hero Vector" />
         </motion.div>
       </div>
     </div>

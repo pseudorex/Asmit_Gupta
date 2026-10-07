@@ -29,7 +29,7 @@ export default function Skills() {
       id: 1,
       company: "Ealth Technologies",
       role: "Software Development Engineer Intern",
-      period: "Jan 2026 - Present",
+      period: "Jan 2026 - Mar 2026",
       description:
         "Optimized search API by eliminating N+1 query patterns using JOIN LOAD in SQLAlchemy, reducing average response time from ~180ms to ~100ms. Moved OTP email delivery to async post-commit for a 99% lower failure response time. Implemented secure JWT/OAuth2 authentication flows with role-based access control.",
     },
@@ -44,7 +44,7 @@ export default function Skills() {
   ]);
 
   return (
-    <div className="mt-3 lg:mt-16" id="skills">
+    <div className="pt-12 lg:pt-20 pb-0" id="skills">
       <div className="px-5 lg:px-28">
 
         <motion.h2
@@ -77,7 +77,7 @@ export default function Skills() {
       </div>
 
       {/* Experience Section */}
-      <div className="bg-black w-full my-8 py-8 lg:my-16 lg:py-16">
+      <div className="bg-black w-full mt-10 py-10 lg:mt-16 lg:py-16">
         <motion.h2
           className="text-2xl lg:text-4xl text-center text-white"
           initial={{ opacity: 0, y: -20 }}

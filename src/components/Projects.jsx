@@ -188,7 +188,7 @@ export default function Projects() {
   };
 
   return (
-    <div className="bg-black px-5 lg:px-28 py-8 my-8 lg:py-16 lg:my-16" id="projects">
+    <div className="bg-black px-5 lg:px-28 py-10 lg:py-16" id="projects">
       <h2 className="text-2xl lg:text-4xl text-center text-white">
         My <span className="font-extrabold">Projects</span>
       </h2>
