@@ -112,7 +112,7 @@ export default function Contact() {
               </span>
             </div>
             <p className="text-[#D4D4D8] text-xs lg:text-sm leading-relaxed font-light">
-              Currently pursuing Integrated M.Tech at VIT (2022-2027) and open to backend development internships, part-time roles, full-time roles, and open-source collaborations. Based in Vellore, India.
+              Currently pursuing Integrated M.Tech at VIT (2024-2029) and open to backend development internships, part-time roles, full-time roles, and open-source collaborations. Based in Vellore, India.
             </p>
           </div>
 
