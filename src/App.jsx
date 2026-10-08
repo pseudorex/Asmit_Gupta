@@ -15,8 +15,8 @@ export default function App() {
       <CustomCursor/>
       <Navbar />
       <Home />
-      <Skills />
       <About />
+      <Skills />
       <Education />
       <Projects />
       <Contact />
