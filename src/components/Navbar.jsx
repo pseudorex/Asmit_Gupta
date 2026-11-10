@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-import { TbDownload } from "react-icons/tb";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 
 export default function Navbar() {
@@ -133,27 +132,8 @@ export default function Navbar() {
             })}
           </motion.ul>
 
-          {/* Resume & Mobile Trigger */}
-          <motion.div layout className="flex items-center gap-2 lg:gap-3">
-            <motion.a
-              layout
-              href="/ASMIT%20GUPTA%20RESUME.pdf"
-              download
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`group relative inline-flex items-center gap-1.5 font-bold transition-all text-xs lg:text-sm ${
-                isScrolled
-                  ? "bg-black text-white hover:bg-zinc-800 px-3.5 py-1.5 rounded-full border border-black shadow-sm"
-                  : "bg-white text-black border-2 border-black hover:bg-black hover:text-white px-3.5 py-1.5 rounded-lg md:rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
-              }`}
-            >
-              Resume{" "}
-              <TbDownload
-                size={14}
-                className="transition-transform duration-200 group-hover:translate-y-0.5"
-              />
-            </motion.a>
-
+          {/* Mobile Trigger */}
+          <motion.div layout className="flex items-center">
             {/* Mobile Hamburger Trigger */}
             <motion.button
               layout
@@ -219,16 +199,6 @@ export default function Navbar() {
                   );
                 })}
               </ul>
-
-              <div className="mt-5 pt-4 border-t border-zinc-200">
-                <a
-                  href="/ASMIT%20GUPTA%20RESUME.pdf"
-                  download
-                  className="w-full flex items-center justify-center gap-2 bg-black text-white font-bold py-3 rounded-2xl border-2 border-black hover:bg-zinc-800 transition-colors"
-                >
-                  Download Resume <TbDownload size={18} />
-                </a>
-              </div>
             </motion.div>
           </>
         )}
