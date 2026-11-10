@@ -133,7 +133,7 @@ export default function Navbar() {
           </motion.ul>
 
           {/* Mobile Trigger */}
-          <motion.div layout className="flex items-center">
+          <motion.div layout className="md:hidden flex items-center">
             {/* Mobile Hamburger Trigger */}
             <motion.button
               layout
